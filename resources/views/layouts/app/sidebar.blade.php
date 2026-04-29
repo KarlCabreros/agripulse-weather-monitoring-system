@@ -11,7 +11,7 @@
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Agripulse')" class="grid">
+                <flux:sidebar.group :heading="__('')" class="grid">
                 
                 <!-- Dashboard -->    
                 <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard*')">
@@ -26,11 +26,6 @@
                 <!-- Weather Alerts -->
                 <flux:sidebar.item icon="bell" href="#" :current="request()->routeIs('alerts*')" >
                     {{ __('Weather Alerts') }}
-                </flux:sidebar.item>
-                
-                <!--Reports -->
-                <flux:sidebar.item icon="chart-bar-square" href="#" :current="request()->routeIs('reports')">
-                    {{ __('Reports') }}
                 </flux:sidebar.item>
 
                 </flux:sidebar.group>

@@ -45,7 +45,7 @@
             <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">🗺️ Farm Location Map</h2>
             <button onclick="locateMe()"
     class="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-all duration-200">
-    📍 Use My Location
+    📍Location
 </button>
 
 <!-- Modern Popup -->
