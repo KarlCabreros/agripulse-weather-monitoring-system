@@ -92,7 +92,9 @@
     </div>
 
         <div wire:ignore>
-            <div id="map" style="height: 400px;" class="rounded-xl z-0"></div>
+            <div id="map" style="height: 300px;" class="rounded-xl z-0"
+            x-data 
+    x-init="$el.style.height = window.innerWidth < 768 ? '250px' : '400px'">>
         </div>
     </div>
 
@@ -124,7 +126,7 @@
                         <th class="px-4 py-3">Activity</th>
                         <th class="px-4 py-3">Type</th>
                         <th class="px-4 py-3">Location</th>
-                        <th class="px-4 py-3">Date</th>
+                        <th class="px-4 py-3">Start Date</th>
                         <th class="px-4 py-3">Status</th>
                     </tr>
                 </thead>
@@ -134,7 +136,7 @@
                         <td class="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{{ $activity->title }}</td>
                         <td class="px-4 py-3">{{ $activity->type }}</td>
                         <td class="px-4 py-3">{{ $activity->location ?? '-' }}</td>
-                        <td class="px-4 py-3">{{ $activity->activity_date->format('M d, Y') }}</td>
+                        <td class="px-4 py-3">{{ $activity->started_at?->format('M d, Y') ?? '-' }}</td>
                         <td class="px-4 py-3">
                             @if($activity->status === 'In Progress')
                                 <span class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700">In Progress</span>
@@ -157,51 +159,54 @@
     </div>
 
     <!-- Recent Farm Activities (Completed only, with delete) -->
-    <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6 mt-4">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">✅ Recent Farm Activities</h2>
-            <span class="text-xs text-gray-400 dark:text-gray-500">Auto-deletes after 7 days</span>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 dark:text-gray-300 uppercase bg-gray-50 dark:bg-neutral-700">
-                    <tr>
-                        <th class="px-4 py-3">Activity</th>
-                        <th class="px-4 py-3">Type</th>
-                        <th class="px-4 py-3">Location</th>
-                        <th class="px-4 py-3">Date</th>
-                        <th class="px-4 py-3">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($completedActivities as $activity)
-                    <tr class="border-b dark:border-neutral-700">
-                        <td class="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{{ $activity->title }}</td>
-                        <td class="px-4 py-3">{{ $activity->type }}</td>
-                        <td class="px-4 py-3">{{ $activity->location ?? '-' }}</td>
-                        <td class="px-4 py-3">{{ $activity->activity_date->format('M d, Y') }}</td>
-                        <td class="px-4 py-3">
-                            <button wire:click="delete({{ $activity->id }})"
-                                wire:confirm="Are you sure you want to delete this activity?"
-                                class="text-red-500 hover:text-red-700 text-xs">
-                                🗑️ Delete
-                            </button>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5" class="px-4 py-6 text-center text-gray-400">
-                            ✅ No completed activities yet.
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+<div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6 mt-4">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">✅ Recent Farm Activities</h2>
+        <span class="text-xs text-gray-400 dark:text-gray-500">Auto-deletes after 7 days</span>
     </div>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 dark:text-gray-300 uppercase bg-gray-50 dark:bg-neutral-700">
+                <tr>
+                    <th class="px-4 py-3">Activity</th>
+                    <th class="px-4 py-3">Type</th>
+                    <th class="px-4 py-3">Location</th>
+                    <th class="px-4 py-3">Started</th>
+                    <th class="px-4 py-3">Ended</th>
+                    <th class="px-4 py-3">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($completedActivities as $activity)
+                <tr class="border-b dark:border-neutral-700">
+                    <td class="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{{ $activity->title }}</td>
+                    <td class="px-4 py-3">{{ $activity->type }}</td>
+                    <td class="px-4 py-3">{{ $activity->location ?? '-' }}</td>
+                    <td class="px-4 py-3">{{ $activity->started_at ? $activity->started_at->format('M d, Y') : '-' }}</td>
+                    <td class="px-4 py-3">{{ $activity->ended_at ? $activity->ended_at->format('M d, Y') : '-' }}</td>
+                    <td class="px-4 py-3">
+                        <button wire:click="delete({{ $activity->id }})"
+                            wire:confirm="Are you sure you want to delete this activity?"
+                            class="text-red-500 hover:text-red-700 text-xs">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="6" class="px-4 py-6 text-center text-gray-400">
+                        ✅ No completed activities yet.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+            
+</div>
 
     <script>
     function updateLocationDisplay(lat, lon, name) {

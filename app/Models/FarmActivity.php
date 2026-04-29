@@ -5,20 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class FarmActivity extends Model
+
 {
     protected $fillable = [
-        'title',
-        'type',
-        'description',
-        'activity_date',
-        'status',
-        'location',
-        'user_id'
-    ];
+    'title',
+    'type',
+    'description',
+    'started_at',
+    'ended_at',
+    'status',
+    'location',
+    'user_id'
+];
 
-    protected $casts = [
-        'activity_date' => 'date',
-    ];
+protected $casts = [
+    'started_at' => 'date',
+    'ended_at' => 'date',
+];
 
     public function user()
     {

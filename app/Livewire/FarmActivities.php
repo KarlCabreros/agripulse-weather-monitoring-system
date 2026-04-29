@@ -11,7 +11,8 @@ class FarmActivities extends Component
     public $title = '';
     public $type = 'Planting';
     public $description = '';
-    public $activity_date = '';
+    public $started_at = '';
+    public $ended_at = '';
     public $status = 'Pending';
     public $location = '';
     public $editingId = null;
@@ -21,7 +22,8 @@ class FarmActivities extends Component
         'title' => 'required|string|max:255',
         'type' => 'required|in:Planting,Fertilizing,Irrigation,Harvesting,Pest Control,Other',
         'description' => 'nullable|string',
-        'activity_date' => 'required|date',
+        'started_at' => 'nullable|date',
+        'ended_at' => 'nullable|date',
         'status' => 'required|in:Pending,In Progress,Completed',
         'location' => 'nullable|string|max:255',
     ];
@@ -36,7 +38,8 @@ class FarmActivities extends Component
                 'title' => $this->title,
                 'type' => $this->type,
                 'description' => $this->description,
-                'activity_date' => $this->activity_date,
+                'started_at' => $this->started_at ?: null,
+                'ended_at' => $this->ended_at ?: null,
                 'status' => $this->status,
                 'location' => $this->location,
             ]);
@@ -45,14 +48,15 @@ class FarmActivities extends Component
                 'title' => $this->title,
                 'type' => $this->type,
                 'description' => $this->description,
-                'activity_date' => $this->activity_date,
+                'started_at' => $this->started_at ?: null,
+                'ended_at' => $this->ended_at ?: null,
                 'status' => $this->status,
                 'location' => $this->location,
                 'user_id' => Auth::id(),
             ]);
         }
 
-        $this->reset(['title', 'type', 'description', 'activity_date', 'status', 'location', 'editingId', 'showForm']);
+        $this->reset(['title', 'type', 'description','started_at', 'ended_at', 'status', 'location', 'editingId', 'showForm']);
         $this->type = 'Planting';
         $this->status = 'Pending';
     }
@@ -64,7 +68,8 @@ class FarmActivities extends Component
         $this->title = $activity->title;
         $this->type = $activity->type;
         $this->description = $activity->description;
-        $this->activity_date = $activity->activity_date->format('Y-m-d');
+        $this->started_at = $activity->started_at ? $activity->started_at->format('Y-m-d') : '';
+        $this->ended_at = $activity->ended_at ? $activity->ended_at->format('Y-m-d') : '';
         $this->status = $activity->status;
         $this->location = $activity->location;
         $this->showForm = true;
@@ -78,7 +83,7 @@ class FarmActivities extends Component
     public function toggleForm()
     {
         $this->showForm = !$this->showForm;
-        $this->reset(['title', 'type', 'description', 'activity_date', 'status', 'location', 'editingId']);
+        $this->reset(['title', 'type', 'description','started_at', 'ended_at', 'status', 'location', 'editingId']);
         $this->type = 'Planting';
         $this->status = 'Pending';
     }
@@ -86,7 +91,7 @@ class FarmActivities extends Component
     public function render()
     {
         $activities = FarmActivity::where('user_id', Auth::id())
-            ->orderBy('activity_date', 'desc')
+            ->orderBy('started_at', 'desc')
             ->get();
 
         return view('livewire.farm-activities', compact('activities'));
