@@ -104,7 +104,19 @@
         </div>
     @endif
 
-    <!-- Alert Banner -->
+<!-- Alert Banner -->
+@if($hasAlert && count($alertMessages) > 0)
+    <div class="flex items-start gap-3 rounded-xl border border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-700 p-4 mt-4">
+        <span class="text-red-600 dark:text-red-400 text-xl">🚨</span>
+        <div>
+            <p class="text-sm font-semibold text-red-700 dark:text-red-400">Critical Weather Alert!</p>
+            @foreach($alertMessages as $message)
+                <p class="text-xs text-red-600 dark:text-red-500">{{ $message }}</p>
+            @endforeach
+            <p class="text-xs text-red-500 dark:text-red-600 mt-1">Alert sent to Discord!</p>
+        </div>
+    </div>
+@else
     <div class="flex items-center gap-3 rounded-xl border border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-700 p-4 mt-4">
         <span class="text-yellow-600 dark:text-yellow-400 text-xl">⚠️</span>
         <div>
@@ -112,6 +124,7 @@
             <p class="text-xs text-yellow-600 dark:text-yellow-500">System is monitoring weather conditions continuously.</p>
         </div>
     </div>
+@endif
 
     <!-- Farm Activities (Pending & In Progress only) -->
     <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6 mt-4">
@@ -132,6 +145,7 @@
                 </thead>
                 <tbody>
                     @forelse($activities as $activity)
+                    
                     <tr class="border-b dark:border-neutral-700">
                         <td class="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{{ $activity->title }}</td>
                         <td class="px-4 py-3">{{ $activity->type }}</td>
@@ -158,7 +172,7 @@
         </div>
     </div>
 
-    <!-- Recent Farm Activities (Completed only, with delete) -->
+   <!-- Recent Farm Activities (Completed only) -->
 <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6 mt-4">
     <div class="flex items-center justify-between mb-4">
         <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">✅ Recent Farm Activities</h2>
@@ -173,7 +187,6 @@
                     <th class="px-4 py-3">Location</th>
                     <th class="px-4 py-3">Started</th>
                     <th class="px-4 py-3">Ended</th>
-                    <th class="px-4 py-3">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -184,17 +197,10 @@
                     <td class="px-4 py-3">{{ $activity->location ?? '-' }}</td>
                     <td class="px-4 py-3">{{ $activity->started_at ? $activity->started_at->format('M d, Y') : '-' }}</td>
                     <td class="px-4 py-3">{{ $activity->ended_at ? $activity->ended_at->format('M d, Y') : '-' }}</td>
-                    <td class="px-4 py-3">
-                        <button wire:click="delete({{ $activity->id }})"
-                            wire:confirm="Are you sure you want to delete this activity?"
-                            class="text-red-500 hover:text-red-700 text-xs">
-                            Delete
-                        </button>
-                    </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="px-4 py-6 text-center text-gray-400">
+                    <td colspan="5" class="px-4 py-6 text-center text-gray-400">
                         ✅ No completed activities yet.
                     </td>
                 </tr>
