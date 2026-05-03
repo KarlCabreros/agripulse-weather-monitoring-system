@@ -7,6 +7,7 @@ use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Models\FarmActivity;
+use App\Services\WeatherAlertService;
 
 class InteractiveMap extends Component
 {
@@ -18,6 +19,8 @@ class InteractiveMap extends Component
     public $weatherDescription = null;
     public $locationName = null;
     public $error = null;
+    public $hasAlert = false;      // ← make sure this is here
+    public $alertMessages = []; 
 
     public function mount()
     {
@@ -61,6 +64,27 @@ class InteractiveMap extends Component
                 $this->weatherDescription = $data['weather'][0]['description'];
                 $this->locationName = $data['name'];
                 $this->error = null;
+
+                // Check weather alerts
+                $alertService = new WeatherAlertService();
+                $this->hasAlert = $alertService->checkAndAlert(
+                    $this->temperature,
+                    $this->humidity,
+                    $this->windSpeed,
+                    $this->locationName
+                );
+                // Build alert messages for UI
+                $this->alertMessages = [];
+                if ($this->temperature >= env('WEATHER_ALERT_TEMP', 35)) {
+                    $this->alertMessages[] = "🌡️ High Temperature: {$this->temperature}°C";
+                }
+                if ($this->humidity >= env('WEATHER_ALERT_HUMIDITY', 90)) {
+                    $this->alertMessages[] = "💧 High Humidity: {$this->humidity}%";
+                }
+                if ($this->windSpeed >= env('WEATHER_ALERT_WIND', 10)) {
+                    $this->alertMessages[] = "💨 High Wind Speed: {$this->windSpeed} m/s";
+                }
+
             } else {
                 $this->error = 'Failed to fetch weather data.';
             }
