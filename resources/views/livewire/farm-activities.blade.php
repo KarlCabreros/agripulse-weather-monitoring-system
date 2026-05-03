@@ -1,11 +1,13 @@
 <div>
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-4">
-        <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">🌾 Farm Activities</h1>
+<!-- Header -->
+<div class="flex items-center justify-between mb-4">
+    <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">🌾 Farm Activities</h1>
+    @if(Auth::user()->canManageActivities())
         <button wire:click="toggleForm" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium">
             {{ $showForm ? 'Cancel' : '+ Add Activity' }}
         </button>
-    </div>
+    @endif
+</div>
 
     <!-- Form -->
     @if($showForm)
@@ -109,7 +111,6 @@
                             <th class="px-4 py-3">Started</th>
                             <th class="px-4 py-3">Ended</th>
                             <th class="px-4 py-3">Status</th>
-                            <th class="px-4 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,9 +136,11 @@
                                 @endif
                             </td>
                             <td class="px-4 py-3">
+                            @if(Auth::user()->canManageActivities())
                                 <button wire:click="edit({{ $activity->id }})" class="text-blue-500 hover:text-blue-700 text-xs mr-2">Edit</button>
                                 <button wire:click="delete({{ $activity->id }})" wire:confirm="Are you sure you want to delete this activity?" class="text-red-500 hover:text-red-700 text-xs">Delete</button>
-                            </td>
+                            @endif
+                        </td>
                         </tr>
                         @endforeach
                     </tbody>
