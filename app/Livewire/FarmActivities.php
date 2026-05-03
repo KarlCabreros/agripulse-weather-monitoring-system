@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\FarmActivity;
+use App\Models\AuditLog;
 use Illuminate\Support\Facades\Auth;
 
 class FarmActivities extends Component
@@ -11,6 +12,7 @@ class FarmActivities extends Component
     public $title = '';
     public $type = 'Planting';
     public $description = '';
+    public $activity_date = '';
     public $started_at = '';
     public $ended_at = '';
     public $status = 'Pending';
@@ -34,6 +36,8 @@ class FarmActivities extends Component
 
         if ($this->editingId) {
             $activity = FarmActivity::find($this->editingId);
+            $oldValues = $activity->toArray();
+
             $activity->update([
                 'title' => $this->title,
                 'type' => $this->type,
@@ -43,8 +47,19 @@ class FarmActivities extends Component
                 'status' => $this->status,
                 'location' => $this->location,
             ]);
+
+            AuditLog::create([
+                'user_id' => Auth::id(),
+                'action' => 'updated',
+                'model' => 'FarmActivity',
+                'model_id' => $activity->id,
+                'old_values' => $oldValues,
+                'new_values' => $activity->fresh()->toArray(),
+                'ip_address' => request()->ip(),
+            ]);
+
         } else {
-            FarmActivity::create([
+            $activity = FarmActivity::create([
                 'title' => $this->title,
                 'type' => $this->type,
                 'description' => $this->description,
@@ -54,9 +69,18 @@ class FarmActivities extends Component
                 'location' => $this->location,
                 'user_id' => Auth::id(),
             ]);
+
+            AuditLog::create([
+                'user_id' => Auth::id(),
+                'action' => 'created',
+                'model' => 'FarmActivity',
+                'model_id' => $activity->id,
+                'new_values' => $activity->toArray(),
+                'ip_address' => request()->ip(),
+            ]);
         }
 
-        $this->reset(['title', 'type', 'description','started_at', 'ended_at', 'status', 'location', 'editingId', 'showForm']);
+        $this->reset(['title', 'type', 'description', 'activity_date', 'started_at', 'ended_at', 'status', 'location', 'editingId', 'showForm']);
         $this->type = 'Planting';
         $this->status = 'Pending';
     }
@@ -68,6 +92,7 @@ class FarmActivities extends Component
         $this->title = $activity->title;
         $this->type = $activity->type;
         $this->description = $activity->description;
+        $this->activity_date = $activity->activity_date ? $activity->activity_date->format('Y-m-d') : '';
         $this->started_at = $activity->started_at ? $activity->started_at->format('Y-m-d') : '';
         $this->ended_at = $activity->ended_at ? $activity->ended_at->format('Y-m-d') : '';
         $this->status = $activity->status;
@@ -77,23 +102,44 @@ class FarmActivities extends Component
 
     public function delete($id)
     {
-        FarmActivity::find($id)->delete();
+        $activity = FarmActivity::find($id);
+
+        AuditLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'deleted',
+            'model' => 'FarmActivity',
+            'model_id' => $id,
+            'old_values' => $activity->toArray(),
+            'ip_address' => request()->ip(),
+        ]);
+
+        $activity->delete();
     }
 
     public function toggleForm()
     {
+        if (!Auth::user()->canManageActivities()) {
+            return;
+        }
         $this->showForm = !$this->showForm;
-        $this->reset(['title', 'type', 'description','started_at', 'ended_at', 'status', 'location', 'editingId']);
+        $this->reset(['title', 'type', 'description', 'activity_date', 'started_at', 'ended_at', 'status', 'location', 'editingId']);
         $this->type = 'Planting';
         $this->status = 'Pending';
     }
 
     public function render()
-    {
-        $activities = FarmActivity::where('user_id', Auth::id())
-            ->orderBy('started_at', 'desc')
+{
+    if (Auth::user()->isOwner()) {
+        // Owner sees ALL activities from everyone
+        $activities = FarmActivity::with('user')
+            ->orderBy('activity_date', 'desc')
             ->get();
-
-        return view('livewire.farm-activities', compact('activities'));
+    } else {
+        // Manager/Worker sees only their own
+        $activities = FarmActivity::where('user_id', Auth::id())
+            ->orderBy('activity_date', 'desc')
+            ->get();
     }
+
+    return view('livewire.farm-activities', compact('activities'));
 }
