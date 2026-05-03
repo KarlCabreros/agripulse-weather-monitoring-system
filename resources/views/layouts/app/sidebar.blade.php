@@ -23,6 +23,19 @@
                         {{ __('Farm Activities') }}
                     </flux:sidebar.item>
 
+                    <!-- User Management (Owner only) -->
+                    @if(Auth::user()->isOwner())
+                        <flux:sidebar.item icon="users" :href="route('user-management')" :current="request()->routeIs('user-management')">
+                            {{ __('User Management') }}
+                        </flux:sidebar.item>
+                    @endif
+
+                    <!-- Audit Trail (Owner only) -->
+                    @if(Auth::user()->isOwner())
+                        <flux:sidebar.item icon="clipboard-document-list" :href="route('audit-trail')" :current="request()->routeIs('audit-trail')">
+                            {{ __('Audit Trail') }}
+                        </flux:sidebar.item>
+                    @endif
 
                 </flux:sidebar.group>
             </flux:sidebar.nav>
