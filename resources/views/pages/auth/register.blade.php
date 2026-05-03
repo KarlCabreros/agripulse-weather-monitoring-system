@@ -51,6 +51,20 @@
                 :placeholder="__('Confirm password')"
                 viewable
             />
+                        <!-- Role -->
+            <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium text-zinc-700 dark:text-zinc-300">Role</label>
+                <select name="role" required
+                    class="w-full rounded-lg border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="owner" {{ old('role') == 'owner' ? 'selected' : '' }}>Owner</option>
+                    <option value="manager" {{ old('role') == 'manager' ? 'selected' : '' }}>Manager</option>
+                    <option value="worker" {{ old('role') == 'worker' ? 'selected' : '' }}>Worker</option>
+                </select>
+                @error('role')
+                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                @enderror
+            </div>
 
             <div class="flex items-center justify-end">
                 <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
