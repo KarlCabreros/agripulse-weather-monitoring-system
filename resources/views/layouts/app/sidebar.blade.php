@@ -19,14 +19,10 @@
                     </flux:sidebar.item>
 
                     <!-- Farm activities -->
-<flux:sidebar.item icon="clipboard" :href="route('farm-activities')" :current="request()->routeIs('farm-activities')">
-    {{ __('Farm Activities') }}
-</flux:sidebar.item>
+                    <flux:sidebar.item icon="clipboard" :href="route('farm-activities')" :current="request()->routeIs('farm-activities')">
+                        {{ __('Farm Activities') }}
+                    </flux:sidebar.item>
 
-                <!-- Weather Alerts -->
-                <flux:sidebar.item icon="bell" href="#" :current="request()->routeIs('alerts*')" >
-                    {{ __('Weather Alerts') }}
-                </flux:sidebar.item>
 
                 </flux:sidebar.group>
             </flux:sidebar.nav>
