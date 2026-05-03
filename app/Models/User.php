@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password','role'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -43,4 +43,24 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    public function isOwner(): bool
+{
+    return $this->role === 'owner';
+}
+
+public function isManager(): bool
+{
+    return $this->role === 'manager';
+}
+
+public function isWorker(): bool
+{
+    return $this->role === 'worker';
+}
+
+public function canManageActivities(): bool
+{
+    return in_array($this->role, ['owner', 'manager']);
+}
 }
