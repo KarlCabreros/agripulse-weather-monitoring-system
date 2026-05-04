@@ -107,10 +107,12 @@
                             <th class="px-4 py-3">Activity</th>
                             <th class="px-4 py-3">Type</th>
                             <th class="px-4 py-3">Location</th>
-                            <th class="px-4 py-3">Date</th>
                             <th class="px-4 py-3">Started</th>
                             <th class="px-4 py-3">Ended</th>
                             <th class="px-4 py-3">Status</th>
+                            @if(Auth::user()->canManageActivities())
+                                <th class="px-4 py-3">Actions</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -135,12 +137,25 @@
                                     <span class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-700">Pending</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3">
                             @if(Auth::user()->canManageActivities())
-                                <button wire:click="edit({{ $activity->id }})" class="text-blue-500 hover:text-blue-700 text-xs mr-2">Edit</button>
-                                <button wire:click="delete({{ $activity->id }})" wire:confirm="Are you sure you want to delete this activity?" class="text-red-500 hover:text-red-700 text-xs">Delete</button>
+                            <td class="px-4 py-3">
+                                <div class="flex items-center gap-2">
+                                    <button
+                                        wire:click="edit({{ $activity->id }})"
+                                        class="px-3 py-1.5 rounded-md bg-green-600 hover:bg-green-700 text-white text-xs font-medium transition"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        wire:click="delete({{ $activity->id }})"
+                                        wire:confirm="Are you sure you want to delete this activity?"
+                                        class="px-3 py-1.5 rounded-md bg-red-600 hover:bg-red-700 text-white text-xs font-medium transition"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
                             @endif
-                        </td>
                         </tr>
                         @endforeach
                     </tbody>

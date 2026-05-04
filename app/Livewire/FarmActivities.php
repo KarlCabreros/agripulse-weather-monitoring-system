@@ -12,7 +12,6 @@ class FarmActivities extends Component
     public $title = '';
     public $type = 'Planting';
     public $description = '';
-    public $activity_date = '';
     public $started_at = '';
     public $ended_at = '';
     public $status = 'Pending';
@@ -80,7 +79,7 @@ class FarmActivities extends Component
             ]);
         }
 
-        $this->reset(['title', 'type', 'description', 'activity_date', 'started_at', 'ended_at', 'status', 'location', 'editingId', 'showForm']);
+        $this->reset(['title', 'type', 'description', 'started_at', 'ended_at', 'status', 'location', 'editingId', 'showForm']);
         $this->type = 'Planting';
         $this->status = 'Pending';
     }
@@ -92,7 +91,6 @@ class FarmActivities extends Component
         $this->title = $activity->title;
         $this->type = $activity->type;
         $this->description = $activity->description;
-        $this->activity_date = $activity->activity_date ? $activity->activity_date->format('Y-m-d') : '';
         $this->started_at = $activity->started_at ? $activity->started_at->format('Y-m-d') : '';
         $this->ended_at = $activity->ended_at ? $activity->ended_at->format('Y-m-d') : '';
         $this->status = $activity->status;
@@ -122,7 +120,7 @@ class FarmActivities extends Component
             return;
         }
         $this->showForm = !$this->showForm;
-        $this->reset(['title', 'type', 'description', 'activity_date', 'started_at', 'ended_at', 'status', 'location', 'editingId']);
+        $this->reset(['title', 'type', 'description', 'started_at', 'ended_at', 'status', 'location', 'editingId']);
         $this->type = 'Planting';
         $this->status = 'Pending';
     }
@@ -132,14 +130,17 @@ class FarmActivities extends Component
     if (Auth::user()->isOwner()) {
         // Owner sees ALL activities from everyone
         $activities = FarmActivity::with('user')
-            ->orderBy('activity_date', 'desc')
+            ->orderByDesc('started_at')
+            ->orderByDesc('created_at')
             ->get();
     } else {
         // Manager/Worker sees only their own
         $activities = FarmActivity::where('user_id', Auth::id())
-            ->orderBy('activity_date', 'desc')
+            ->orderByDesc('started_at')
+            ->orderByDesc('created_at')
             ->get();
     }
 
     return view('livewire.farm-activities', compact('activities'));
+}
 }

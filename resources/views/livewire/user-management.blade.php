@@ -48,10 +48,12 @@
                         <td class="px-4 py-3">
                             @if($user->id !== Auth::id())
                                 @if($editingId === $user->id)
-                                    <button wire:click="updateRole({{ $user->id }})" class="text-green-500 hover:text-green-700 text-xs mr-2">Save</button>
-                                    <button wire:click="cancelEdit" class="text-gray-500 hover:text-gray-700 text-xs">Cancel</button>
+                                    <div class="flex items-center gap-2">
+                                        <button wire:click="updateRole({{ $user->id }})" class="px-3 py-1.5 rounded-md bg-green-600 hover:bg-green-700 text-white text-xs font-medium transition">Save</button>
+                                        <button wire:click="cancelEdit" class="px-3 py-1.5 rounded-md bg-red-600 hover:bg-red-700 text-white text-xs font-medium transition">Cancel</button>
+                                    </div>
                                 @else
-                                    <button wire:click="editRole({{ $user->id }})" class="text-blue-500 hover:text-blue-700 text-xs">Change Role</button>
+                                    <button wire:click="editRole({{ $user->id }})" class="px-3 py-1.5 rounded-md bg-green-600 hover:bg-green-700 text-white text-xs font-medium transition">Change Role</button>
                                 @endif
                             @endif
                         </td>

@@ -12,7 +12,7 @@ return new class extends Migration
 public function up(): void
 {
     Schema::table('farm_activities', function (Blueprint $table) {
-        $table->date('started_at')->nullable()->after('ended_at');
+        $table->date('started_at')->nullable()->after('activity_date');
         $table->date('ended_at')->nullable()->after('started_at');
     });
 }
