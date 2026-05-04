@@ -33,7 +33,7 @@
                         </td>
                         <td class="px-4 py-3">{{ $log->model }} #{{ $log->model_id }}</td>
                         <td class="px-4 py-3">{{ $log->ip_address ?? '-' }}</td>
-                        <td class="px-4 py-3">{{ $log->created_at->format('M d, Y h:i A') }}</td>
+                        <td class="px-4 py-3">{{ $log->created_at->timezone('Asia/Manila')->format('M d, Y h:i A') }}</td>
                     </tr>
                     @empty
                     <tr>

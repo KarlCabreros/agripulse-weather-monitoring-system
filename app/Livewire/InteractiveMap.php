@@ -100,15 +100,17 @@ class InteractiveMap extends Component
 
     public function render()
     {
-    $activities = FarmActivity::where('user_id', Auth::id())
-        ->whereIn('status', ['Pending', 'In Progress'])
-        ->orderBy('started_at', 'desc')
-        ->get();
+        $activities = FarmActivity::query()
+            ->whereIn('status', ['Pending', 'In Progress'])
+            ->orderByDesc('started_at')
+            ->orderByDesc('created_at')
+            ->get();
 
-    $completedActivities = FarmActivity::where('user_id', Auth::id())
-        ->where('status', 'Completed')
-        ->orderBy('started_at', 'desc')
-        ->get();
+        $completedActivities = FarmActivity::query()
+            ->where('status', 'Completed')
+            ->orderByDesc('started_at')
+            ->orderByDesc('created_at')
+            ->get();
 
         return view('livewire.interactive-map', compact('activities', 'completedActivities'));
     }

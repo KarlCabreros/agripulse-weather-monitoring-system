@@ -31,6 +31,10 @@ class FarmActivities extends Component
 
     public function save()
     {
+        if (!Auth::user()->canManageActivities()) {
+            return;
+        }
+
         $this->validate();
 
         if ($this->editingId) {
@@ -86,6 +90,10 @@ class FarmActivities extends Component
 
     public function edit($id)
     {
+        if (!Auth::user()->canManageActivities()) {
+            return;
+        }
+
         $activity = FarmActivity::find($id);
         $this->editingId = $activity->id;
         $this->title = $activity->title;
@@ -100,6 +108,10 @@ class FarmActivities extends Component
 
     public function delete($id)
     {
+        if (!Auth::user()->canManageActivities()) {
+            return;
+        }
+
         $activity = FarmActivity::find($id);
 
         AuditLog::create([
@@ -127,19 +139,10 @@ class FarmActivities extends Component
 
     public function render()
 {
-    if (Auth::user()->isOwner()) {
-        // Owner sees ALL activities from everyone
-        $activities = FarmActivity::with('user')
-            ->orderByDesc('started_at')
-            ->orderByDesc('created_at')
-            ->get();
-    } else {
-        // Manager/Worker sees only their own
-        $activities = FarmActivity::where('user_id', Auth::id())
-            ->orderByDesc('started_at')
-            ->orderByDesc('created_at')
-            ->get();
-    }
+    $activities = FarmActivity::with('user')
+        ->orderByDesc('started_at')
+        ->orderByDesc('created_at')
+        ->get();
 
     return view('livewire.farm-activities', compact('activities'));
 }
