@@ -5,7 +5,7 @@
         <!-- Temperature -->
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6">
             <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                🌡️ Temperature
+                Temperature
             </div>
             <div class="text-4xl font-bold text-orange-500">
                 {{ $temperature !== null ? $temperature . '°C' : '--°C' }}
@@ -18,7 +18,7 @@
         <!-- Humidity -->
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6">
             <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                💧 Humidity
+                Humidity
             </div>
             <div class="text-4xl font-bold text-blue-500">
                 {{ $humidity !== null ? $humidity . '%' : '--%' }}
@@ -29,7 +29,7 @@
         <!-- Wind Speed -->
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6">
             <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                💨 Wind Speed
+                Wind Speed
             </div>
             <div class="text-4xl font-bold text-green-500">
                 {{ $windSpeed !== null ? $windSpeed . ' m/s' : '-- m/s' }}
@@ -42,10 +42,10 @@
     <!-- Map Container -->
     <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-4 mt-4">
         <div class="flex items-center justify-between mb-2">
-            <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">🗺️ Farm Location Map</h2>
+            <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Farm Location Map</h2>
             <button onclick="locateMe()"
     class="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-all duration-200">
-    📍Location
+    Location
 </button>
 
 <!-- Modern Popup -->
@@ -57,7 +57,7 @@
     <div class="relative z-10 bg-white dark:bg-zinc-800 rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center">
         
         <!-- Icon -->
-        <div id="popup-icon" class="text-6xl mb-4">📍</div>
+        <div id="popup-icon" class="text-6xl mb-4"></div>
         
         <!-- Title -->
         <h3 id="popup-title" class="text-xl font-bold text-gray-800 dark:text-white mb-2">
@@ -86,7 +86,7 @@
         
         <!-- Location Info -->
     <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm font-medium mb-3">
-        📍 <span id="current-location-name">{{ $locationName ?? 'Batac City' }}</span>
+        <span id="current-location-name">{{ $locationName ?? 'Batac City' }}</span>
         (<span id="current-lat">{{ number_format($lat, 4) }}</span>, 
         <span id="current-lon">{{ number_format($lon, 4) }}</span>)
     </div>
@@ -100,14 +100,13 @@
 
     @if($error)
         <div class="mt-4 p-4 rounded-xl border border-red-300 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">
-            ⚠️ {{ $error }}
+            {{ $error }}
         </div>
     @endif
 
 <!-- Alert Banner -->
 @if($hasAlert && count($alertMessages) > 0)
     <div class="flex items-start gap-3 rounded-xl border border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-700 p-4 mt-4">
-        <span class="text-red-600 dark:text-red-400 text-xl">🚨</span>
         <div>
             <p class="text-sm font-semibold text-red-700 dark:text-red-400">Critical Weather Alert!</p>
             @foreach($alertMessages as $message)
@@ -118,7 +117,6 @@
     </div>
 @else
     <div class="flex items-center gap-3 rounded-xl border border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-700 p-4 mt-4">
-        <span class="text-yellow-600 dark:text-yellow-400 text-xl">⚠️</span>
         <div>
             <p class="text-sm font-semibold text-yellow-700 dark:text-yellow-400">No Active Weather Alerts</p>
             <p class="text-xs text-yellow-600 dark:text-yellow-500">System is monitoring weather conditions continuously.</p>
@@ -129,7 +127,7 @@
     <!-- Farm Activities (Pending & In Progress only) -->
     <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6 mt-4">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">📋 Farm Activities</h2>
+            <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Farm Activities</h2>
             <a href="{{ route('farm-activities') }}" class="text-sm text-green-600 hover:underline">Manage Activities</a>
         </div>
         <div class="overflow-x-auto">
@@ -162,7 +160,7 @@
                     @empty
                     <tr>
                         <td colspan="5" class="px-4 py-6 text-center text-gray-400">
-                            🌱 No farm activities yet.
+                            No farm activities yet.
                             <a href="{{ route('farm-activities') }}" class="text-green-600 hover:underline">Add one now!</a>
                         </td>
                     </tr>
@@ -175,7 +173,7 @@
    <!-- Recent Farm Activities (Completed only) -->
 <div class="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6 mt-4">
     <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">✅ Recent Farm Activities</h2>
+        <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Recent Farm Activities</h2>
         <span class="text-xs text-gray-400 dark:text-gray-500">Auto-deletes after 7 days</span>
     </div>
     <div class="overflow-x-auto">
@@ -201,7 +199,7 @@
                 @empty
                 <tr>
                     <td colspan="5" class="px-4 py-6 text-center text-gray-400">
-                        ✅ No completed activities yet.
+                        No completed activities yet.
                     </td>
                 </tr>
                 @endforelse
@@ -286,11 +284,11 @@
 
     function locateMe() {
         if (!navigator.geolocation) {
-            showLocationPopup('❌', 'Not Supported', 'Geolocation is not supported by your browser.', true, true);
+            showLocationPopup('', 'Not Supported', 'Geolocation is not supported by your browser.', true, true);
             return;
         }
 
-        showLocationPopup('📍', 'Finding Your Location...', 'Please allow location access when prompted by your browser.', false, false);
+        showLocationPopup('', 'Finding Your Location...', 'Please allow location access when prompted by your browser.', false, false);
 
         navigator.geolocation.getCurrentPosition(
             function(position) {
@@ -304,7 +302,7 @@
                 fetchLocationName(lat, lon, function(name) {
                     if (window.mapMarker) {
                         window.mapMarker.setLatLng([lat, lon]);
-                        window.mapMarker.bindPopup('📍 ' + name).openPopup();
+                        window.mapMarker.bindPopup(name).openPopup();
                     }
 
                     updateLocationDisplay(lat, lon, name);
@@ -314,7 +312,7 @@
                     loadingBar.style.width = '100%';
 
                     setTimeout(function() {
-                        showLocationPopup('✅', 'Location Found!', 'Weather data updated for ' + name + '.', true, false);
+                        showLocationPopup('', 'Location Found!', 'Weather data updated for ' + name + '.', true, false);
                     }, 500);
                 });
             },
@@ -323,7 +321,7 @@
                 if (error.code === 1) message = 'Location access was denied. Please allow location access in your browser settings.';
                 if (error.code === 2) message = 'Location unavailable. Please try again.';
                 if (error.code === 3) message = 'Location request timed out. Please try again.';
-                showLocationPopup('❌', 'Location Error', message, true, true);
+                showLocationPopup('', 'Location Error', message, true, true);
             },
             {
                 enableHighAccuracy: true,
@@ -353,7 +351,7 @@
         }).addTo(map);
 
         var marker = L.marker([lat, lon]).addTo(map)
-            .bindPopup('📍 ' + locationName)
+            .bindPopup(locationName)
             .openPopup();
 
         window.mapMarker = marker;
@@ -364,7 +362,7 @@
 
             fetchLocationName(clickLat, clickLon, function(name) {
                 marker.setLatLng([clickLat, clickLon]);
-                marker.bindPopup('📍 ' + name).openPopup();
+                marker.bindPopup(name).openPopup();
                 updateLocationDisplay(clickLat, clickLon, name);
                 Livewire.dispatch('updateLocation', { lat: clickLat, lon: clickLon });
             });

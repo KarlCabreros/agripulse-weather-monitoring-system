@@ -5,7 +5,7 @@
         <!-- Temperature -->
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6">
             <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                🌡️ Temperature
+                Temperature
             </div>
             <div class="text-4xl font-bold text-orange-500">
                 {{ $temperature !== null ? $temperature . '°C' : '--°C' }}
@@ -18,7 +18,7 @@
         <!-- Humidity -->
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6">
             <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                💧 Humidity
+                Humidity
             </div>
             <div class="text-4xl font-bold text-blue-500">
                 {{ $humidity !== null ? $humidity . '%' : '--%' }}
@@ -29,7 +29,7 @@
         <!-- Wind Speed -->
         <div class="flex flex-col gap-2 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6">
             <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm font-medium">
-                💨 Wind Speed
+                Wind Speed
             </div>
             <div class="text-4xl font-bold text-green-500">
                 {{ $windSpeed !== null ? $windSpeed . ' m/s' : '-- m/s' }}
@@ -42,7 +42,7 @@
     <!-- Error Message -->
     @if($error)
         <div class="mt-4 p-4 rounded-xl border border-red-300 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">
-            ⚠️ {{ $error }}
+            {{ $error }}
         </div>
     @endif
 </div>

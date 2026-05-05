@@ -25,7 +25,6 @@ class FarmActivities extends Component
         'description' => 'nullable|string',
         'started_at' => 'nullable|date',
         'ended_at' => 'nullable|date',
-        'status' => 'required|in:Pending,In Progress,Completed',
         'location' => 'nullable|string|max:255',
     ];
 
@@ -36,6 +35,7 @@ class FarmActivities extends Component
         }
 
         $this->validate();
+        $status = $this->determineStatus();
 
         if ($this->editingId) {
             $activity = FarmActivity::find($this->editingId);
@@ -47,7 +47,7 @@ class FarmActivities extends Component
                 'description' => $this->description,
                 'started_at' => $this->started_at ?: null,
                 'ended_at' => $this->ended_at ?: null,
-                'status' => $this->status,
+                'status' => $status,
                 'location' => $this->location,
             ]);
 
@@ -68,7 +68,7 @@ class FarmActivities extends Component
                 'description' => $this->description,
                 'started_at' => $this->started_at ?: null,
                 'ended_at' => $this->ended_at ?: null,
-                'status' => $this->status,
+                'status' => $status,
                 'location' => $this->location,
                 'user_id' => Auth::id(),
             ]);
@@ -86,6 +86,19 @@ class FarmActivities extends Component
         $this->reset(['title', 'type', 'description', 'started_at', 'ended_at', 'status', 'location', 'editingId', 'showForm']);
         $this->type = 'Planting';
         $this->status = 'Pending';
+    }
+
+    private function determineStatus(): string
+    {
+        if ($this->ended_at) {
+            return 'Completed';
+        }
+
+        if ($this->started_at) {
+            return 'In Progress';
+        }
+
+        return 'Pending';
     }
 
     public function edit($id)

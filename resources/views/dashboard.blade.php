@@ -3,7 +3,7 @@
         
         <!-- Page Title -->
         <div class="flex items-center justify-between">
-            <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">🌾 AgriPulse Dashboard</h1>
+            <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">AgriPulse Dashboard</h1>
             <span class="text-sm text-gray-500 dark:text-gray-400">{{ now()->timezone('Asia/Manila')->format('F d, Y h:i A') }}</span>
         </div>
 

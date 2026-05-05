@@ -1,6 +1,6 @@
 <div>
     <div class="flex items-center justify-between mb-4">
-        <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">📜 Audit Trail</h1>
+        <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">Audit Trail</h1>
         <span class="text-xs text-gray-400">Showing last 50 activities</span>
     </div>
 
@@ -12,7 +12,6 @@
                         <th class="px-4 py-3">User</th>
                         <th class="px-4 py-3">Action</th>
                         <th class="px-4 py-3">Record</th>
-                        <th class="px-4 py-3">IP Address</th>
                         <th class="px-4 py-3">Date & Time</th>
                     </tr>
                 </thead>
@@ -32,13 +31,12 @@
                             @endif
                         </td>
                         <td class="px-4 py-3">{{ $log->model }} #{{ $log->model_id }}</td>
-                        <td class="px-4 py-3">{{ $log->ip_address ?? '-' }}</td>
                         <td class="px-4 py-3">{{ $log->created_at->timezone('Asia/Manila')->format('M d, Y h:i A') }}</td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="px-4 py-6 text-center text-gray-400">
-                            📜 No audit logs yet.
+                        <td colspan="4" class="px-4 py-6 text-center text-gray-400">
+                            No audit logs yet.
                         </td>
                     </tr>
                     @endforelse

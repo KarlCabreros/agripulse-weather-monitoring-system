@@ -1,7 +1,7 @@
 
 <div>
     <div class="flex items-center justify-between mb-4">
-        <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">👥 User Management</h1>
+        <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">User Management</h1>
     </div>
 
     <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-6">
