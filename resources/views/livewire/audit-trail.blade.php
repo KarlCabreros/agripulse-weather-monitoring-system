@@ -1,6 +1,6 @@
 <div>
     <div class="flex items-center justify-between mb-4">
-        <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">Audit Trail</h1>
+        <h1 class="text-2xl font-bold text-green-600 dark:text-green-600">Audit Trail</h1>
         <span class="text-xs text-gray-400">Showing last 50 activities</span>
     </div>
 
@@ -23,7 +23,7 @@
                         </td>
                         <td class="px-4 py-3">
                             @if($log->action === 'created')
-                                <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-700">Created</span>
+                                <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-600">Created</span>
                             @elseif($log->action === 'updated')
                                 <span class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700">Updated</span>
                             @else

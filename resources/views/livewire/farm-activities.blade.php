@@ -1,14 +1,7 @@
 <div>
     <!-- Header -->
     <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center gap-3">
-            <span class="inline-flex size-10 items-center justify-center rounded-lg bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">
-                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M12 12.75c0-3.25 2.65-5.9 5.9-5.9H21v3.1c0 3.25-2.65 5.9-5.9 5.9H12Zm0 0c0-3.25-2.65-5.9-5.9-5.9H3v3.1c0 3.25 2.65 5.9 5.9 5.9H12Z" />
-                </svg>
-            </span>
-            <h1 class="text-xl md:text-2xl font-bold text-green-700 dark:text-green-400">Farm Activities</h1>
-        </div>
+        <h1 class="text-xl md:text-2xl font-bold text-green-600 dark:text-green-600">Farm Activities</h1>
 
         @if(Auth::user()->canManageActivities())
             <button wire:click="toggleForm" class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition">
@@ -32,12 +25,12 @@
         <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-5 md:p-6 mb-4">
             <h2 class="flex items-center gap-2 text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">
                 @if($editingId)
-                    <svg class="size-5 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                    <svg class="size-5 text-green-600 dark:text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.651-1.651a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125" />
                     </svg>
                     <span>Edit Activity</span>
                 @else
-                    <svg class="size-5 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                    <svg class="size-5 text-green-600 dark:text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m7-7H5" />
                     </svg>
                     <span>Add New Activity</span>
@@ -49,7 +42,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Activity Title</label>
                     <input wire:model="title" type="text" placeholder="e.g. Rice Field Irrigation"
-                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-600">
                     @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
@@ -57,7 +50,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
                     <select wire:model="type"
-                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-600">
                         <option>Planting</option>
                         <option>Fertilizing</option>
                         <option>Irrigation</option>
@@ -72,7 +65,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ended At</label>
                     <input wire:model="ended_at" type="date"
-                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-600">
                     @error('ended_at') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
@@ -80,7 +73,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Started At</label>
                     <input wire:model="started_at" type="date"
-                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-600">
                     @error('started_at') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
@@ -88,7 +81,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location</label>
                     <input wire:model="location" type="text" placeholder="e.g. Field A, North Farm"
-                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-600">
                     @error('location') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
@@ -96,7 +89,7 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
                     <textarea wire:model="description" placeholder="Additional details..."
-                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" rows="2"></textarea>
+                        class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-600" rows="2"></textarea>
                     @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
@@ -116,7 +109,7 @@
     <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-5 md:p-6">
         @if($activities->isEmpty())
             <div class="flex flex-col items-center justify-center py-10 text-center text-gray-500 dark:text-gray-400">
-                <span class="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">
+                <span class="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-green-600 text-white">
                     <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M12 12.75c0-3.25 2.65-5.9 5.9-5.9H21v3.1c0 3.25-2.65 5.9-5.9 5.9H12Zm0 0c0-3.25-2.65-5.9-5.9-5.9H3v3.1c0 3.25 2.65 5.9 5.9 5.9H12Z" />
                     </svg>
@@ -154,7 +147,7 @@
                             <td class="px-4 py-3">{{ $activity->ended_at ? $activity->ended_at->format('M d, Y') : '-' }}</td>
                             <td class="px-4 py-3">
                                 @if($activity->status === 'Completed')
-                                    <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs bg-green-100 text-green-700">
+                                    <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs bg-green-100 text-green-600">
                                         <svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                         </svg>

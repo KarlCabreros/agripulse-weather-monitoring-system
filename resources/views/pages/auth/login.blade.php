@@ -43,7 +43,7 @@
             <flux:checkbox name="remember" :label="__('Remember me')" :checked="old('remember')" />
 
             <div class="flex items-center justify-end">
-                <flux:button variant="primary" type="submit" class="w-full" data-test="login-button">
+                <flux:button variant="primary" type="submit" class="w-full !bg-green-600 hover:!bg-green-700 !text-white focus-visible:!ring-green-600" data-test="login-button">
                     {{ __('Log in') }}
                 </flux:button>
             </div>

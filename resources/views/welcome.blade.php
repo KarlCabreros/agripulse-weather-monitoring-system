@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>AgriPulse - Smart Agriculture Management System</title>
         <link rel="icon" href="/favicon.ico" sizes="any">
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -17,8 +18,7 @@
         <!-- Navbar -->
         <nav class="flex items-center justify-between px-8 py-4 border-b border-zinc-800">
             <div class="flex items-center gap-2">
-                <span class="text-2xl">🌾</span>
-                <span class="text-xl font-bold text-green-400">AgriPulse</span>
+                <span class="text-xl font-bold text-green-600">AgriPulse</span>
             </div>
             <div class="flex items-center gap-4">
             </div>
@@ -27,10 +27,9 @@
         <!-- Hero Section -->
         <main class="flex-1 flex flex-col items-center justify-center px-8 py-20 text-center">
             <div class="max-w-3xl">
-                <span class="text-6xl mb-6 block">🌾</span>
                 <h1 class="text-5xl font-bold text-white mb-4">
                     Smart Agriculture
-                    <span class="text-green-400">Management System</span>
+                    <span class="text-green-600">Management System</span>
                 </h1>
                 <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
                     AgriPulse helps farmers and farm managers make data-driven decisions with real-time weather analytics, automated alerts, and centralized farm activity logging.
@@ -60,42 +59,36 @@
                     
                     <!-- Feature 1 -->
                     <div class="bg-zinc-800 rounded-xl p-6 border border-zinc-700">
-                        <div class="text-4xl mb-4">🌡️</div>
                         <h3 class="text-lg font-semibold text-white mb-2">Real-Time Weather Dashboard</h3>
                         <p class="text-sm text-gray-400">Displays live temperature, humidity, and wind speed specific to your farm's GPS coordinates using OpenWeatherMap API.</p>
                     </div>
 
                     <!-- Feature 2 -->
                     <div class="bg-zinc-800 rounded-xl p-6 border border-zinc-700">
-                        <div class="text-4xl mb-4">📋</div>
                         <h3 class="text-lg font-semibold text-white mb-2">Farm Activity Logging</h3>
                         <p class="text-sm text-gray-400">Centralized module for recording and tracking planting dates, fertilizer applications, and irrigation schedules.</p>
                     </div>
 
                     <!-- Feature 3 -->
                     <div class="bg-zinc-800 rounded-xl p-6 border border-zinc-700">
-                        <div class="text-4xl mb-4">⚠️</div>
                         <h3 class="text-lg font-semibold text-white mb-2">Critical Weather Alerts</h3>
                         <p class="text-sm text-gray-400">Automated monitoring that triggers instant notifications to Discord or Telegram when safety thresholds are breached.</p>
                     </div>
 
                     <!-- Feature 4 -->
                     <div class="bg-zinc-800 rounded-xl p-6 border border-zinc-700">
-                        <div class="text-4xl mb-4">🗺️</div>
                         <h3 class="text-lg font-semibold text-white mb-2">Interactive Farm Map</h3>
                         <p class="text-sm text-gray-400">Click anywhere on the map to get real-time weather data for that specific location using GPS coordinates.</p>
                     </div>
 
                     <!-- Feature 5 -->
                     <div class="bg-zinc-800 rounded-xl p-6 border border-zinc-700">
-                        <div class="text-4xl mb-4">🔔</div>
                         <h3 class="text-lg font-semibold text-white mb-2">Multi-Platform Notifications</h3>
                         <p class="text-sm text-gray-400">Pushes formatted emergency warnings to Discord channels or Telegram groups to reach field personnel instantly.</p>
                     </div>
 
                     <!-- Feature 6 -->
                     <div class="bg-zinc-800 rounded-xl p-6 border border-zinc-700">
-                        <div class="text-4xl mb-4">🔒</div>
                         <h3 class="text-lg font-semibold text-white mb-2">Secure Authentication</h3>
                         <p class="text-sm text-gray-400">Robust login and registration system for different farm personnel to protect data integrity and maintain audit trails.</p>
                     </div>
