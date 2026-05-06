@@ -30,6 +30,8 @@ Frontend: Blade, Livewire
 
 Database: MySQL
 
+Local Development: Laragon
+
 Authentication: Laravel Auth
 
 Version Control: Git & GitHub
