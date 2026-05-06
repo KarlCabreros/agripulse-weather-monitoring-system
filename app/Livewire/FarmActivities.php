@@ -152,11 +152,19 @@ class FarmActivities extends Component
 
     public function render()
 {
-    $activities = FarmActivity::with('user')
-        ->orderByDesc('started_at')
-        ->orderByDesc('created_at')
-        ->get();
+    if (Auth::user()->isOwner()) {
+        // Owner sees ALL activities from everyone
+        $activities = FarmActivity::with('user')
+            ->orderBy('activity_date', 'desc')
+            ->get();
+    } else {
+        // Manager/Worker sees only their own
+        $activities = FarmActivity::where('user_id', Auth::id())
+            ->orderBy('activity_date', 'desc')
+            ->get();
+    }
 
     return view('livewire.farm-activities', compact('activities'));
+    }
 }
 }
