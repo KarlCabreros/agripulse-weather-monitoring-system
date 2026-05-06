@@ -125,20 +125,31 @@ class InteractiveMap extends Component
         return 'interactive_map.location.'.(Auth::id() ?? 'guest');
     }
 
-    public function render()
-    {
-        $activities = FarmActivity::query()
-            ->whereIn('status', ['Pending', 'In Progress'])
-            ->orderByDesc('started_at')
-            ->orderByDesc('created_at')
-            ->get();
+public function render()
+{
+    $activities = FarmActivity::with('user')
+        ->whereIn('status', ['Pending', 'In Progress'])
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-        $completedActivities = FarmActivity::query()
-            ->where('status', 'Completed')
-            ->orderByDesc('started_at')
-            ->orderByDesc('created_at')
-            ->get();
+    $completedActivities = FarmActivity::with('user')
+        ->where('status', 'Completed')
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-        return view('livewire.interactive-map', compact('activities', 'completedActivities'));
-    }
+    return view('livewire.interactive-map', [
+        'activities' => $activities,
+        'completedActivities' => $completedActivities,
+        'temperature' => $this->temperature,
+        'humidity' => $this->humidity,
+        'windSpeed' => $this->windSpeed,
+        'weatherDescription' => $this->weatherDescription,
+        'locationName' => $this->locationName,
+        'lat' => $this->lat,
+        'lon' => $this->lon,
+        'error' => $this->error,
+        'hasAlert' => $this->hasAlert,
+        'alertMessages' => $this->alertMessages,
+    ]);
+}
 }

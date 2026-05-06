@@ -150,21 +150,22 @@ class FarmActivities extends Component
         $this->status = 'Pending';
     }
 
-    public function render()
+public function render()
 {
-    if (Auth::user()->isOwner()) {
-        // Owner sees ALL activities from everyone
-        $activities = FarmActivity::with('user')
-            ->orderBy('activity_date', 'desc')
-            ->get();
-    } else {
-        // Manager/Worker sees only their own
-        $activities = FarmActivity::where('user_id', Auth::id())
-            ->orderBy('activity_date', 'desc')
-            ->get();
-    }
+    $activities = FarmActivity::with('user')
+        ->whereIn('status', ['Pending', 'In Progress'])
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-    return view('livewire.farm-activities', compact('activities'));
-    }
+    $completedActivities = FarmActivity::with('user')
+        ->where('status', 'Completed')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return view('livewire.farm-activities', [
+        'activities' => $activities,
+        'completedActivities' => $completedActivities,
+    ]);
 }
 }
+

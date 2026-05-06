@@ -1,6 +1,7 @@
 databases:
   - name: agripulse-db
     plan: free
+    region: singapore
     databaseName: agripulse
     user: agripulse
 
@@ -9,6 +10,7 @@ services:
     name: agripulse-weather-monitoring-system
     runtime: docker
     plan: free
+    region: singapore
     dockerfilePath: ./Dockerfile
     dockerContext: .
     preDeployCommand: php artisan migrate --force
@@ -30,6 +32,10 @@ services:
         value: info
       - key: DB_CONNECTION
         value: pgsql
+      - key: DATABASE_URL
+        fromDatabase:
+          name: agripulse-db
+          property: connectionString
       - key: DB_URL
         fromDatabase:
           name: agripulse-db
@@ -46,3 +52,13 @@ services:
         value: local
       - key: MAIL_MAILER
         value: log
+      - key: OPENWEATHER_API_KEY
+        sync: false
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
+      - key: WEATHER_ALERT_TEMP
+        value: 35
+      - key: WEATHER_ALERT_HUMIDITY
+        value: 90
+      - key: WEATHER_ALERT_WIND
+        value: 10

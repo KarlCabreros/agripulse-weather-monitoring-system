@@ -47,6 +47,7 @@
     class="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-all duration-200">
     Location
 </button>
+</div>
 
 <!-- Modern Popup -->
 <div id="location-popup" class="hidden fixed inset-0 z-50 flex items-center justify-center">
@@ -96,7 +97,7 @@
             x-data 
     x-init="$el.style.height = window.innerWidth < 768 ? '250px' : '400px'">>
         </div>
-    </div>
+</div>
 
     @if($error)
         <div class="mt-4 p-4 rounded-xl border border-red-300 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">

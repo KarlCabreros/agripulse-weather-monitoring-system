@@ -100,7 +100,7 @@
         <!-- Footer -->
         <footer class="px-8 py-6 border-t border-zinc-800 text-center">
             <p class="text-sm text-gray-500">
-                © {{ date('Y') }} AgriPulse — Smart Agriculture Management System | MMSU CCIS BSIT 3A
+                © {{ date('Y') }} AgriPulse — Smart Agriculture Management System | all rights reserved. <br>
             </p>
         </footer>
 
