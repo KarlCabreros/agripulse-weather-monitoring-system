@@ -1,4 +1,4 @@
-FROM node:24-bookworm-slim AS frontend
+FROM node:22-bookworm-slim AS frontend
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ COPY package.json package-lock.json vite.config.js ./
 COPY resources ./resources
 COPY public ./public
 
-RUN npm ci && npm run build
+RUN npm ci --include=optional && npm run build
 
 
 FROM php:8.4-apache
