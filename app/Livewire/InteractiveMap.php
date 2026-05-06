@@ -24,6 +24,7 @@ class InteractiveMap extends Component
 
     public function mount()
     {
+        $this->loadSavedLocation();
         $this->fetchWeather();
         $this->autoDeleteCompleted();
     }
@@ -64,6 +65,7 @@ class InteractiveMap extends Component
                 $this->weatherDescription = $data['weather'][0]['description'];
                 $this->locationName = $data['name'];
                 $this->error = null;
+                $this->saveCurrentLocation();
 
                 $alertService = new WeatherAlertService();
                 $this->hasAlert = $alertService->checkAndAlert(
@@ -94,6 +96,33 @@ class InteractiveMap extends Component
     public function delete($id)
     {
         FarmActivity::find($id)->delete();
+    }
+
+    private function loadSavedLocation(): void
+    {
+        $location = session($this->locationSessionKey());
+
+        if (! is_array($location)) {
+            return;
+        }
+
+        $this->lat = (float) ($location['lat'] ?? $this->lat);
+        $this->lon = (float) ($location['lon'] ?? $this->lon);
+        $this->locationName = $location['name'] ?? $this->locationName;
+    }
+
+    private function saveCurrentLocation(): void
+    {
+        session()->put($this->locationSessionKey(), [
+            'lat' => $this->lat,
+            'lon' => $this->lon,
+            'name' => $this->locationName,
+        ]);
+    }
+
+    private function locationSessionKey(): string
+    {
+        return 'interactive_map.location.'.(Auth::id() ?? 'guest');
     }
 
     public function render()
