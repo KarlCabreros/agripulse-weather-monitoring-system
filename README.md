@@ -36,3 +36,5 @@ Authentication: Laravel Auth
 
 Version Control: Git & GitHub
 
+Mechanism : Openweather API and Webhook Discord
+
